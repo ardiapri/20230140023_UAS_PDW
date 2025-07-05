@@ -10,10 +10,10 @@ require_once '../config.php';
 $pageTitle = 'Laporan Masuk';
 $activePage = 'laporan_masuk';
 
-// Menggunakan header.php dari dalam folder asisten/templates
+// Header asisten
 require_once __DIR__ . '/templates/header.php';
 
-// Query laporan masuk
+// Ambil data laporan
 $query = "
     SELECT l.id, m.nama AS mahasiswa, mo.nama AS modul, l.nama_file, l.tanggal_upload
     FROM laporan l
@@ -24,40 +24,42 @@ $query = "
 $result = $conn->query($query);
 ?>
 
-<div class="bg-white p-6 rounded-xl shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Laporan Masuk</h2>
+<!-- CONTAINER UTAMA -->
+<div class="bg-purple-800/70 text-white p-6 rounded-xl shadow-lg mb-6">
+    <h2 class="text-2xl font-bold mb-2">📥 Laporan Masuk</h2>
+    <p class="opacity-90">Berikut adalah daftar laporan dari mahasiswa yang sudah diunggah.</p>
+</div>
 
+<!-- CONTAINER TABEL -->
+<div class="bg-purple-700/60 p-6 rounded-xl shadow-md text-white overflow-x-auto">
     <?php if ($result && $result->num_rows > 0): ?>
-        <table class="min-w-full bg-white border">
+        <table class="min-w-full table-auto border-collapse">
             <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">Mahasiswa</th>
-                    <th class="py-2 px-4 border-b">Modul</th>
-                    <th class="py-2 px-4 border-b">File</th>
-                    <th class="py-2 px-4 border-b">Tanggal Upload</th>
+                <tr class="border-b border-purple-400">
+                    <th class="py-2 px-4 text-left">Mahasiswa</th>
+                    <th class="py-2 px-4 text-left">Modul</th>
+                    <th class="py-2 px-4 text-left">File</th>
+                    <th class="py-2 px-4 text-left">Tanggal Upload</th>
                 </tr>
             </thead>
             <tbody>
                 <?php while($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td class="py-2 px-4 border-b"><?= htmlspecialchars($row['mahasiswa']); ?></td>
-                    <td class="py-2 px-4 border-b"><?= htmlspecialchars($row['modul']); ?></td>
-                    <td class="py-2 px-4 border-b">
-                        <a href="../uploads/<?= htmlspecialchars($row['nama_file']); ?>" target="_blank" class="text-blue-600 hover:underline">
+                <tr class="border-b border-purple-400 hover:bg-purple-600/50 transition">
+                    <td class="py-2 px-4"><?= htmlspecialchars($row['mahasiswa']); ?></td>
+                    <td class="py-2 px-4"><?= htmlspecialchars($row['modul']); ?></td>
+                    <td class="py-2 px-4">
+                        <a href="../uploads/<?= htmlspecialchars($row['nama_file']); ?>" target="_blank" class="text-blue-200 hover:underline">
                             <?= htmlspecialchars($row['nama_file']); ?>
                         </a>
                     </td>
-                    <td class="py-2 px-4 border-b"><?= $row['tanggal_upload']; ?></td>
+                    <td class="py-2 px-4"><?= $row['tanggal_upload']; ?></td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p class="text-gray-600">Belum ada laporan masuk.</p>
+        <p class="text-purple-100">Belum ada laporan masuk.</p>
     <?php endif; ?>
 </div>
 
-<?php
-// Menggunakan footer.php dari dalam folder asisten/templates
-require_once __DIR__ . '/templates/footer.php';
-?>
+<?php require_once __DIR__ . '/templates/footer.php'; ?>

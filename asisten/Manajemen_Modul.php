@@ -15,35 +15,45 @@ $query = "SELECT * FROM modul";
 $result = $conn->query($query);
 ?>
 
-<div class="bg-white p-6 rounded-xl shadow-md">
-    <h2 class="text-2xl font-bold mb-4">Manajemen Modul</h2>
-
-    <a href="tambah_modul.php" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mb-4 inline-block">Tambah Modul Baru</a>
-
-    <?php if ($result->num_rows > 0): ?>
-        <table class="min-w-full bg-white border mt-4">
-            <thead>
-                <tr>
-                    <th class="py-2 px-4 border-b">No</th>
-                    <th class="py-2 px-4 border-b">Nama Modul</th>
-                    <th class="py-2 px-4 border-b">Deskripsi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $no = 1; while($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td class="py-2 px-4 border-b"><?php echo $no++; ?></td>
-                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($row['nama']); ?></td>
-                    <td class="py-2 px-4 border-b"><?php echo htmlspecialchars($row['deskripsi']); ?></td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>Tidak ada modul tersedia.</p>
-    <?php endif; ?>
+<!-- CONTAINER HEADER -->
+<div class="bg-purple-800/70 text-white p-6 rounded-xl shadow-lg mb-6">
+    <h2 class="text-2xl font-bold mb-2">📚 Manajemen Modul</h2>
+    <p class="opacity-90">Kelola data modul untuk setiap praktikum yang tersedia.</p>
 </div>
 
-<?php
-require_once '../templates/footer_asisten.php';
-?>
+<!-- CONTAINER TABEL (MENYATU DENGAN LAPORAN MASUK) -->
+<div class="bg-purple-700/60 text-white p-6 rounded-xl shadow-lg">
+    <?php if ($result->num_rows > 0): ?>
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse">
+                <thead>
+                    <tr class="border-b border-purple-300">
+                        <th class="py-2 px-4 text-left">No</th>
+                        <th class="py-2 px-4 text-left">Nama Modul</th>
+                        <th class="py-2 px-4 text-left">Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1; while($row = $result->fetch_assoc()): ?>
+                    <tr class="border-b border-purple-400 hover:bg-purple-600/40 transition">
+                        <td class="py-2 px-4"><?= $no++; ?></td>
+                        <td class="py-2 px-4"><?= htmlspecialchars($row['nama']); ?></td>
+                        <td class="py-2 px-4"><?= htmlspecialchars($row['deskripsi']); ?></td>
+                    </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php else: ?>
+        <p class="text-purple-100">Tidak ada modul tersedia.</p>
+    <?php endif; ?>
+
+    <!-- Tombol Tambah Modul -->
+    <div class="mt-6">
+        <a href="tambah_modul.php" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-semibold inline-block transition">
+            ➕ Tambah Modul Baru
+        </a>
+    </div>
+</div>
+
+<?php require_once '../templates/footer_asisten.php'; ?>

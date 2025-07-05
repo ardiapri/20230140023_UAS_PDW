@@ -16,11 +16,30 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <title>Panel Mahasiswa - <?php echo $pageTitle ?? 'Dashboard'; ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('../img/istockphoto-956227662-612x612.jpg'); /* Ganti path jika berbeda */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Overlay gelap untuk membuat kontras teks tetap nyaman dibaca */
+        .overlay::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 font-sans overlay">
 
 <!-- NAVIGASI -->
-<nav class="bg-blue-600 shadow-lg">
+<nav class="bg-blue-600 shadow-lg bg-opacity-90">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
 

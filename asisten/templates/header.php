@@ -10,6 +10,22 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <title><?= $pageTitle ?? 'Panel Asisten'; ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-dashboard-asisten {
+            background-image: url('../img/pexels-steve-12537428.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(4px);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
 
@@ -51,10 +67,11 @@ if (session_status() === PHP_SESSION_NONE) {
     </aside>
 
     <!-- Konten Utama -->
-    <main class="flex-1 p-6">
-        <header class="flex items-center justify-between mb-6">
-            <h1 class="text-3xl font-bold text-gray-800"><?= $pageTitle ?? ''; ?></h1>
-            <a href="../logout.php" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition">
-                Logout
-            </a>
-        </header>
+    <main class="flex-1 p-6 bg-dashboard-asisten">
+        <div class="overlay">
+            <header class="flex items-center justify-between mb-6">
+                <h1 class="text-3xl font-bold text-gray-800"><?= $pageTitle ?? ''; ?></h1>
+                <a href="../logout.php" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+                    Logout
+                </a>
+            </header>
